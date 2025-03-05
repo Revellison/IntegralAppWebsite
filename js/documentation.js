@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Получаем все секции и ссылки навигации
+
     const sections = document.querySelectorAll('.content section');
     const navLinks = document.querySelectorAll('.doc-navigation a');
 
-    // Функция для определения активного раздела
     function setActiveSection() {
         let currentSection = '';
         
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Обновляем активную ссылку
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href').substring(1) === currentSection) {
@@ -24,9 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Слушаем событие скролла
     window.addEventListener('scroll', setActiveSection);
     
-    // Устанавливаем начальное состояние
     setActiveSection();
 }); 
