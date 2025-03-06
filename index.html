@@ -1,30 +1,240 @@
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-   <link rel="stylesheet" href="./styles/global.css">
-   <link rel="stylesheet" href="./styles/particle.css">
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Integral - Главная</title>
-   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integral - placeholder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Rubik', sans-serif;
+            background-color: #ffffff;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+            
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+
+        .container {
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+            animation: fadeInDown 1s;
+        }
+
+        .icon {
+            font-size: 4.5rem;
+            color: #2c2c2c;
+            margin-bottom: 2rem;
+            display: inline-block;
+            animation: pulse-rotate 3s infinite;
+        }
+
+        @keyframes pulse-rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(180deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 2.5rem;
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: #1a1a1a;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 400;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            white-space: nowrap;
+        }
+
+        .download-btn:hover {
+            background-color: #333333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .download-btn i {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+
+            .icon {
+                font-size: 4rem;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 2rem;
+            }
+
+            .download-btn {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .icon {
+                font-size: 3.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .download-btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.9rem;
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
 <body>
-   <div id="header-placeholder"></div>
-   <div id="particles-js"></div>
-   <div class="content-wrapper">
-      <div class="parent">
-         <div class="div5">5</div>
-         <div class="div6">6</div>
-         <div class="div7">7</div>
-         <div class="div8">8</div>
-      </div>
-   </div>
-   <div id="footer-placeholder"></div>
-   <script src="js/preloader.js"></script>
-   <script src="js/loadheader.js"></script>
-   <script src="js/loadfooter.js"></script>
-   <script src="js/particles.js"></script>
-   <script src="js/theme.js"></script>
+    <div id="particles-js"></div>
+    <div class="container">
+        <i class="fas fa-cog icon"></i>
+        <h1>Временно недоступно</h1>
+        <a href="https://github.com/Revellison/IntegralApp/releases/latest/download/integral.zip" class="download-btn">
+            <i class="fas fa-download"></i>Скачать Приложение
+        </a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#2c2c2c'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.2,
+                    random: false
+                },
+                size: {
+                    value: 3,
+                    random: true
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#2c2c2c',
+                    opacity: 0.1,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: false,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 0.3
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
 </body>
-</html>
+</html> 
