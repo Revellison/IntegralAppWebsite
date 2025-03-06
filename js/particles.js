@@ -1,157 +1,145 @@
 document.addEventListener('DOMContentLoaded', function() {
     particlesJS('particles-js', {
-        "particles": {
-            "number": {
-                "value": 80,
-                "density": {
-                    "enable": true,
-                    "value_area": 800
+        particles: {
+            number: {
+                value: 80,
+                density: {
+                    enable: true,
+                    value_area: 800
                 }
             },
-            "color": {
-                "value": getComputedStyle(document.documentElement)
-                         .getPropertyValue('--text-primary').trim()
+            color: {
+                value: '#2c2c2c'
             },
-            "shape": {
-                "type": "circle",
-                "stroke": {
-                    "width": 0,
-                    "color": "#000000"
-                }
+            shape: {
+                type: 'circle'
             },
-            "opacity": {
-                "value": 0.1,
-                "random": true,
-                "anim": {
-                    "enable": true,
-                    "speed": 1,
-                    "opacity_min": 0.05,
-                    "sync": false
-                }
+            opacity: {
+                value: 0.2,
+                random: false
             },
-            "size": {
-                "value": 3,
-                "random": true,
-                "anim": {
-                    "enable": true,
-                    "speed": 2,
-                    "size_min": 0.3,
-                    "sync": false
-                }
+            size: {
+                value: 3,
+                random: true
             },
-            "line_linked": {
-                "enable": true,
-                "distance": 150,
-                "color": "#000000",
-                "opacity": 0.1,
-                "width": 1
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: '#2c2c2c',
+                opacity: 0.1,
+                width: 1
             },
-            "move": {
-                "enable": true,
-                "speed": 1,
-                "direction": "none",
-                "random": true,
-                "straight": false,
-                "out_mode": "out",
-                "bounce": false,
-                "attract": {
-                    "enable": true,
-                    "rotateX": 600,
-                    "rotateY": 1200
+            move: {
+                enable: true,
+                speed: 2,
+                direction: 'none',
+                random: false,
+                straight: false,
+                out_mode: 'out',
+                bounce: false,
+                attract: {
+                    enable: true,
+                    rotateX: 600,
+                    rotateY: 1200
                 }
             }
         },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-                "onhover": {
-                    "enable": true,
-                    "mode": "bubble"
+        interactivity: {
+            detect_on: 'window',
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: 'grab'
                 },
-                "onclick": {
-                    "enable": true,
-                    "mode": "push"
+                onclick: {
+                    enable: false
                 },
-                "resize": true
+                resize: true
             },
-            "modes": {
-                "grab": {
-                    "distance": 400,
-                    "line_linked": {
-                        "opacity": 0.5
+            modes: {
+                grab: {
+                    distance: 200,
+                    line_linked: {
+                        opacity: 0.4
                     }
                 },
-                "bubble": {
-                    "distance": 200,
-                    "size": 6,
-                    "duration": 0.3,
-                    "opacity": 0.3,
-                    "speed": 3
+                push: {
+                    particles_nb: 4
                 },
-                "repulse": {
-                    "distance": 200,
-                    "duration": 0.4
-                },
-                "push": {
-                    "particles_nb": 4
-                },
-                "remove": {
-                    "particles_nb": 2
+                repulse: {
+                    distance: 200,
+                    duration: 0.4
                 }
             }
         },
-        "retina_detect": true
+        retina_detect: true
     });
 
-    // Добавляем параллакс эффект
+    // Оптимизируем параллакс эффект
+    let parallaxTimeout;
     document.addEventListener('mousemove', function(e) {
-        const particles = document.getElementById('particles-js');
-        const mouseX = e.clientX;
-        const mouseY = e.clientY;
-        
-        // Вычисляем смещение от центра
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        const deltaX = (mouseX - centerX) / centerX;
-        const deltaY = (mouseY - centerY) / centerY;
+        if (parallaxTimeout) return;
 
-        // Применяем трансформацию с небольшой задержкой
-        requestAnimationFrame(() => {
-            particles.style.transform = `translate(${deltaX * 20}px, ${deltaY * 20}px)`;
-        });
+        parallaxTimeout = setTimeout(() => {
+            const particles = document.getElementById('particles-js');
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const deltaX = (mouseX - centerX) / centerX;
+            const deltaY = (mouseY - centerY) / centerY;
+
+            // Уменьшаем силу эффекта и добавляем плавность
+            particles.style.transition = 'transform 0.3s ease-out';
+            particles.style.transform = `translate(${deltaX * 10}px, ${deltaY * 10}px)`;
+
+            parallaxTimeout = null;
+        }, 16);
     });
 
-    // Добавляем эффект при скролле
+    // Оптимизируем эффект при скролле
+    let scrollTimeout;
     let lastScrollTop = 0;
     window.addEventListener('scroll', function() {
-        const particles = document.getElementById('particles-js');
-        const st = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollDirection = st > lastScrollTop ? 'down' : 'up';
-        
-        // Изменяем скорость частиц в зависимости от направления скролла
-        const pJS = window.pJSDom[0].pJS;
-        if (pJS && pJS.particles && pJS.particles.move) {
-            if (scrollDirection === 'down') {
-                pJS.particles.move.speed = 3;
-                pJS.particles.move.direction = 'bottom';
-            } else {
-                pJS.particles.move.speed = 3;
-                pJS.particles.move.direction = 'top';
+        if (scrollTimeout) return;
+
+        scrollTimeout = setTimeout(() => {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollDirection = st > lastScrollTop ? 'down' : 'up';
+            
+            const pJS = window.pJSDom[0].pJS;
+            if (pJS && pJS.particles && pJS.particles.move) {
+                pJS.particles.move.speed = 2;
+                if (scrollDirection === 'down') {
+                    pJS.particles.move.direction = 'bottom';
+                } else {
+                    pJS.particles.move.direction = 'top';
+                }
+                
+                setTimeout(() => {
+                    pJS.particles.move.direction = 'none';
+                    pJS.particles.move.speed = 1.5;
+                }, 500);
             }
-        }
-        
-        lastScrollTop = st <= 0 ? 0 : st;
+            
+            lastScrollTop = st <= 0 ? 0 : st;
+            scrollTimeout = null;
+        }, 50);
     });
 
-    // Добавляем эффект волны при клике
+    // Оптимизируем эффект волны
     document.addEventListener('click', function(e) {
         const particles = document.getElementById('particles-js');
         const ripple = document.createElement('div');
         ripple.className = 'ripple';
         ripple.style.left = e.clientX + 'px';
         ripple.style.top = e.clientY + 'px';
-        particles.appendChild(ripple);
         
-        setTimeout(() => ripple.remove(), 1000);
+        ripple.style.animation = 'ripple 0.8s ease-out';
+        ripple.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%)';
+        
+        particles.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 800);
     });
 }); 

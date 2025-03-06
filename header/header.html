@@ -2,13 +2,39 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <header>
     <a class="logo" href="index.html">INTEGRAL</a>
-    <nav class="navigation">
+    <div class="header-controls">
         <button class="theme-toggle" aria-label="Переключить тему">
             <i class="fas fa-sun"></i>
         </button>
-        <a href="project.html" class="navbtn">Проект</a>
-        <a href="documentation.html" class="navbtn">Документация</a>
-        <a href="code.html" class="navbtn">Код</a>
-        <a href="versions.html" class="navbtn">Версии</a>
-    </nav>
+        <div class="menu">
+            <input type="checkbox" id="burger-checkbox" class="burger-checkbox">
+            <label for="burger-checkbox" class="burger"></label>
+            <nav class="navigation">
+                <a href="project.html" class="navbtn">Проект</a>
+                <a href="documentation.html" class="navbtn">Документация</a>
+                <a href="versions.html" class="navbtn">Версии</a>
+            </nav>
+        </div>
+    </div>
 </header>
+<script>
+// Ждем полной загрузки DOM
+document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.getElementById('burger-checkbox');
+    const navigation = document.querySelector('.navigation');
+
+    // Закрытие меню при клике на ссылку
+    navigation.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+            checkbox.checked = false;
+        });
+    });
+
+    // Закрытие меню при изменении размера экрана
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            checkbox.checked = false;
+        }
+    });
+});
+</script>

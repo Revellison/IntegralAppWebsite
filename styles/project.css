@@ -4,8 +4,9 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    color: var(--text-color);
-    background-color: var(--bg-color);
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 h1, h2, h3, h4 {
@@ -17,45 +18,167 @@ h1, h2, h3, h4 {
 
 h1 {
     text-align: center;
-    font-size: 2.5em;
-    margin-bottom: 1em;
+    font-size: 2.5rem;
+    margin: 1rem 0 2rem;
+    transition: color 0.2s ease;
 }
 
 .toc {
-    background: var(--element-bg);
-    padding: 25px;
-    border-radius: 8px;
-    margin: 20px 0;
-    box-shadow: var(--shadow);
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.toc h2 {
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s ease;
 }
 
 .toc ul {
-    list-style-type: none;
-    padding-left: 20px;
+    list-style: none;
+    padding-left: 0;
 }
 
-.toc a {
-    color: var(--link-color);
+.toc ul ul {
+    padding-left: 1.5rem;
+}
+
+.toc ul li {
+    margin: 0.8rem 0;
+}
+
+.toc ul li a {
+    color: var(--text-secondary);
     text-decoration: none;
-    transition: color 0.3s ease;
-    line-height: 1.8;
+    transition: color 0.2s ease;
+    display: inline-block;
+    padding: 0.3rem 0;
+    position: relative;
 }
 
-.toc a:hover {
-    color: var(--link-hover-color);
-    text-decoration: underline;
+.toc ul li a:hover {
+    color: var(--text-primary);
+}
+
+.toc ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--text-primary);
+    transition: width 0.2s ease;
+}
+
+.toc ul li a:hover::after {
+    width: 100%;
 }
 
 section {
-    margin-bottom: 30px;
-    background: var(--element-bg);
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+section h1, 
+section h2, 
+section h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    transition: color 0.2s ease;
+}
+
+section h2 {
+    color: var(--text-primary);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s ease;
+}
+
+section h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin: 1.5rem 0 1rem;
+    transition: color 0.2s ease;
+}
+
+section p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    transition: color 0.2s ease;
+}
+
+section ul, 
+section ol {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+section li {
+    margin: 0.5rem 0;
+    transition: color 0.2s ease;
+}
+
+.references {
+    counter-reset: ref-counter;
+    list-style: none;
+    padding-left: 0;
+}
+
+.references li {
+    counter-increment: ref-counter;
+    padding-left: 2.5rem;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.references li::before {
+    content: counter(ref-counter) ".";
+    position: absolute;
+    left: 0;
+    color: var(--text-primary);
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.references a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    padding-bottom: 2px;
+}
+
+.references a:hover {
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+}
+
+#appendix h3 {
+    color: var(--text-primary);
+    margin: 1.5rem 0 1rem;
+    transition: color 0.2s ease;
 }
 
 .content {
-    text-align: justify;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    margin-top: 80px;
 }
 
 .references li {
@@ -63,13 +186,13 @@ section {
 }
 
 .references a {
-    color: var(--link-color);
+    color: var(--text-secondary);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
 }
 
 .references a:hover {
-    color: var(--link-hover-color);
+    color: var(--text-primary);
     text-decoration: underline;
 }
 
@@ -85,16 +208,111 @@ p {
     margin-bottom: 1em;
 }
 
-@media (max-width: 768px) {
-    body {
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 2em;
+@media (max-width: 1024px) {
+    .content {
+        padding: 1.5rem;
     }
 
     section {
-        padding: 15px;
+        padding: 1.5rem;
     }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 1rem;
+        margin-top: 70px;
+    }
+
+    section {
+        padding: 1.2rem;
+        margin: 1.5rem 0;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+    }
+
+    section h3 {
+        font-size: 1.3rem;
+    }
+
+    .toc {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .content {
+        padding: 0.8rem;
+        margin-top: 60px;
+    }
+
+    section {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin: 1.5rem 0;
+    }
+
+    section h2 {
+        font-size: 1.5rem;
+    }
+
+    section h3 {
+        font-size: 1.2rem;
+    }
+
+    .toc {
+        padding: 1rem;
+    }
+
+    .references li {
+        padding-left: 2rem;
+    }
+}
+
+/* Ускоряем анимации */
+* {
+    transition: background-color 0.2s ease, 
+                color 0.2s ease, 
+                border-color 0.2s ease, 
+                box-shadow 0.2s ease;
+}
+
+/* Стили для основного контента */
+.content section {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+}
+
+.content h1, 
+.content h2, 
+.content h3 {
+    color: var(--text-primary);
+}
+
+.content p {
+    color: var(--text-secondary);
+}
+
+.content ul li,
+.content ol li {
+    color: var(--text-secondary);
+}
+
+/* Стили для методологии */
+section ul strong {
+    color: var(--text-primary);
+    transition: color 0.2s ease;
 } 

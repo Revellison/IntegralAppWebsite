@@ -1,52 +1,106 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Ждем загрузки header
+    // Ждем загрузку header
     const headerCheck = setInterval(() => {
         const themeToggle = document.querySelector('.theme-toggle');
         if (themeToggle) {
             clearInterval(headerCheck);
-            initTheme(themeToggle);
+            initTheme();
+            
+            // Добавляем обработчик клика на кнопку
+            themeToggle.addEventListener('click', () => {
+                toggleTheme();
+                updateThemeIcon(themeToggle);
+            });
+            
+            // Устанавливаем начальную иконку
+            updateThemeIcon(themeToggle);
         }
     }, 100);
 });
 
-function initTheme(themeToggle) {
-    const icon = themeToggle.querySelector('i');
+// Функция для установки темы
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
     
-    // Загружаем сохраненную тему
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
-    updateIcon(icon, savedTheme);
-    updateParticlesColor(savedTheme);
-
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    // Обновляем частицы при смене темы
+    if (window.pJSDom && window.pJSDom[0]) {
+        const particles = window.pJSDom[0].pJS.particles;
+        const style = getComputedStyle(document.documentElement);
         
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        
-        updateIcon(icon, newTheme);
-        updateParticlesColor(newTheme);
+        // Получаем цвета из CSS-переменных
+        const colors = [
+            style.getPropertyValue('--particle-color-1').trim(),
+            style.getPropertyValue('--particle-color-2').trim(),
+            style.getPropertyValue('--particle-color-3').trim()
+        ];
+            
+        particles.array.forEach((p, i) => {
+            p.color.value = colors[i % 3];
+            p.color.rgb = hexToRgb(colors[i % 3]);
+        });
+    }
+    
+    // Обновляем иконку на всех кнопках переключения темы
+    document.querySelectorAll('.theme-toggle').forEach(button => {
+        updateThemeIcon(button);
     });
 }
 
-function updateIcon(icon, theme) {
-    icon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+// Функция для обновления иконки темы
+function updateThemeIcon(button) {
+    const icon = button.querySelector('i');
+    if (icon) {
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        icon.className = currentTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    }
 }
 
-function updateParticlesColor(theme) {
-    if (window.pJSDom && window.pJSDom[0]) {
-        const pJS = window.pJSDom[0].pJS;
-        const color = getComputedStyle(document.documentElement)
-            .getPropertyValue('--text-primary').trim();
+// Функция для переключения темы
+function toggleTheme() {
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+}
 
-        // Обновляем цвет частиц
-        pJS.particles.color.value = color;
-        pJS.particles.line_linked.color = color;
-
-        // Пересоздаем все частицы с новым цветом
-        pJS.fn.particlesEmpty();
-        pJS.fn.particlesCreate();
-        pJS.fn.particlesDraw();
+// Функция для определения предпочтительной темы системы
+function getPreferredTheme() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
     }
+    return 'light';
+}
+
+// Инициализация темы
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const theme = savedTheme || getPreferredTheme();
+    setTheme(theme);
+
+    // Слушаем изменения системной темы
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    }
+}
+
+// Вспомогательная функция для конвертации hex в rgb
+function hexToRgb(hex) {
+    if (hex.startsWith('rgba')) {
+        const parts = hex.match(/[\d.]+/g);
+        return {
+            r: parseInt(parts[0]),
+            g: parseInt(parts[1]),
+            b: parseInt(parts[2])
+        };
+    }
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
 } 

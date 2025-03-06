@@ -1,23 +1,74 @@
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="ru">
 <head>
    <link rel="stylesheet" href="./styles/global.css">
    <link rel="stylesheet" href="./styles/particle.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Integral - Главная</title>
    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+   <script src="js/animations.js" defer></script>
 </head>
 
 <body>
    <div id="header-placeholder"></div>
    <div id="particles-js"></div>
    <div class="content-wrapper">
-      <div class="parent">
-         <div class="div5">5</div>
-         <div class="div6">6</div>
-         <div class="div7">7</div>
-         <div class="div8">8</div>
+      <div class="hero-section" id="hero">
+         <h1>Integral</h1>
+         <p class="subtitle">Using AI to create software will simplify and optimize the end product development process.</p>
+         <a href="https://github.com/Revellison/IntegralApp/releases/latest/download/integral.zip" class="download-btn">
+            <i class="fas fa-download"></i>Скачать приложение
+         </a>
+         <div class="scroll-hint" id="scroll-hint">
+            <p>Подробнее</p>
+            <i class="fas fa-chevron-down bounce"></i>
+         </div>
+      </div>
+      <div class="features-section" id="features">
+         <div class="grid-container">
+            <div class="left-column">
+               <div class="feature-card animate-on-scroll animate-left">
+                  <i class="fas fa-robot feature-icon"></i>
+                  <h2>Интеграция с ИИ</h2>
+                  <p>Integral использует передовые технологии искусственного интеллекта для анализа и оптимизации кода. Интеграция с ChatGPT и Claude обеспечивает интеллектуальную поддержку разработки, автоматическую генерацию кода и помощь в отладке.</p>
+                  <div class="ai-icons-container">
+                     <i class="fab fa-python ai-icon python animate-on-scroll"></i>
+                     <i class="fas fa-brain ai-icon brain animate-on-scroll"></i>
+                     <i class="fab fa-github ai-icon github animate-on-scroll"></i>
+                     <i class="fas fa-code ai-icon code animate-on-scroll"></i>
+                     <i class="fas fa-robot ai-icon robot animate-on-scroll"></i>
+                     <i class="fas fa-microchip ai-icon chip animate-on-scroll"></i>
+                  </div>
+               </div>
+               <div class="watermark-container animate-on-scroll">
+                  <a href="https://github.com/Revellison/IntegralApp" target="_blank" class="watermark">
+                     <span class="watermark-text">GITHUB</span>
+                     <i class="fab fa-github"></i>
+                  </a>
+               </div>
+            </div>
+            <div class="right-column">
+               <div class="feature-card animate-on-scroll animate-right">
+                  <i class="fas fa-code feature-icon"></i>
+                  <h2>Python & PyQt6</h2>
+                  <p>Разработано с использованием Python и современного фреймворка PyQt6. Интуитивно понятный интерфейс, богатый функционал и высокая производительность для эффективной работы.</p>
+               </div>
+               <div class="feature-card animate-on-scroll animate-right">
+                  <i class="fas fa-tools feature-icon"></i>
+                  <h2>Инструменты разработки</h2>
+                  <p>Интеграция с Cursor IDE, поддержка современных инструментов разработки и автоматизация рутинных задач. Оптимизированный процесс создания и тестирования программного обеспечения.</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="cta-section">
+         <h2>Готовы начать?</h2>
+         <p></p>
+         <a href="https://github.com/Revellison/IntegralApp/releases/latest/download/integral.zip" class="download-btn large">
+            <i class="fas fa-download"></i>Скачать Бесплатно
+         </a>
       </div>
    </div>
    <div id="footer-placeholder"></div>
@@ -26,5 +77,17 @@
    <script src="js/loadfooter.js"></script>
    <script src="js/particles.js"></script>
    <script src="js/theme.js"></script>
+   <script>
+      document.getElementById('scroll-hint').addEventListener('click', function() {
+         const featuresSection = document.getElementById('features');
+         const headerHeight = 60;
+         const scrollTo = featuresSection.offsetTop + (featuresSection.offsetHeight / 2) - (window.innerHeight / 2) - headerHeight;
+         
+         window.scrollTo({
+            top: scrollTo,
+            behavior: 'smooth'
+         });
+      });
+   </script>
 </body>
 </html>
