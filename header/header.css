@@ -24,9 +24,10 @@ a {
 }
 
 a:hover {
-    text-decoration: underline;
-    color: cadetblue;
+    text-decoration: none;
+    color: var(--text-primary);
 }
+
 
 .buy {
     padding: 10px 15px;
@@ -99,7 +100,11 @@ a:hover {
     margin-right: 10px;
     transition: transform 0.7s;
     color: var(--text-primary);
-    transition: color 0.2s ease;
+    transition: letter-spacing 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo:hover {
+    letter-spacing: 2px;
 }
 
 #buy {
@@ -149,7 +154,10 @@ a:hover {
     width: 100%;
 }
 
-/* Стили для бургер-меню */
+.navbtn:hover {
+    transform: translateY(-2px);
+}
+
 .burger-checkbox {
     position: absolute;
     visibility: hidden;
@@ -221,10 +229,10 @@ a:hover {
         position: fixed;
         top: 0;
         right: 0;
-        width: 250px;
+        width: 50%;
         height: 100vh;
-        background-color: var(--burger-menu-bg);
-        backdrop-filter: blur(10px);
+        background-color: var(--bg-primary);
+        backdrop-filter: blur(2px);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -254,9 +262,7 @@ a:hover {
 
 @media (max-width: 523px) {
     .navigation {
-        width: 100%;
         transform: translateX(100%);
-        background-color: white;
     }
 
     header {
@@ -277,7 +283,6 @@ a:hover {
 @media (max-width: 401px) {
     .navigation {
         padding: 1rem;
-        background-color: white;
     }
 
     .navbtn {
@@ -332,6 +337,7 @@ a:hover {
 .theme-toggle {
     background: none;
     border: none;
+    border-radius: 25%;
     color: var(--text-primary);
     padding: 0.5rem;
     cursor: pointer;
@@ -340,11 +346,11 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, color 0.3s ease;
 }
 
 .theme-toggle:hover {
-    transform: scale(1.1);
+    background-color: rgba(0, 0, 0, 0.253);
 }
 
 .theme-toggle i {

@@ -1,34 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Ждем загрузку header
     const headerCheck = setInterval(() => {
         const themeToggle = document.querySelector('.theme-toggle');
         if (themeToggle) {
             clearInterval(headerCheck);
             initTheme();
             
-            // Добавляем обработчик клика на кнопку
             themeToggle.addEventListener('click', () => {
                 toggleTheme();
                 updateThemeIcon(themeToggle);
             });
             
-            // Устанавливаем начальную иконку
             updateThemeIcon(themeToggle);
         }
     }, 100);
 });
 
-// Функция для установки темы
 function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     
-    // Обновляем частицы при смене темы
     if (window.pJSDom && window.pJSDom[0]) {
         const particles = window.pJSDom[0].pJS.particles;
         const style = getComputedStyle(document.documentElement);
         
-        // Получаем цвета из CSS-переменных
         const colors = [
             style.getPropertyValue('--particle-color-1').trim(),
             style.getPropertyValue('--particle-color-2').trim(),
@@ -41,13 +35,11 @@ function setTheme(theme) {
         });
     }
     
-    // Обновляем иконку на всех кнопках переключения темы
     document.querySelectorAll('.theme-toggle').forEach(button => {
         updateThemeIcon(button);
     });
 }
 
-// Функция для обновления иконки темы
 function updateThemeIcon(button) {
     const icon = button.querySelector('i');
     if (icon) {
@@ -56,14 +48,12 @@ function updateThemeIcon(button) {
     }
 }
 
-// Функция для переключения темы
 function toggleTheme() {
     const currentTheme = localStorage.getItem('theme') || 'light';
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
 }
 
-// Функция для определения предпочтительной темы системы
 function getPreferredTheme() {
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         return 'dark';
@@ -71,13 +61,11 @@ function getPreferredTheme() {
     return 'light';
 }
 
-// Инициализация темы
 function initTheme() {
     const savedTheme = localStorage.getItem('theme');
     const theme = savedTheme || getPreferredTheme();
     setTheme(theme);
 
-    // Слушаем изменения системной темы
     if (window.matchMedia) {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
             if (!localStorage.getItem('theme')) {
@@ -87,7 +75,6 @@ function initTheme() {
     }
 }
 
-// Вспомогательная функция для конвертации hex в rgb
 function hexToRgb(hex) {
     if (hex.startsWith('rgba')) {
         const parts = hex.match(/[\d.]+/g);

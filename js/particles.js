@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 enable: true,
                 distance: 150,
                 color: '#2c2c2c',
-                opacity: 0.1,
+                opacity: 0.2,
                 width: 1
             },
             move: {
@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
         retina_detect: true
     });
 
-    // Оптимизируем параллакс эффект
     let parallaxTimeout;
     document.addEventListener('mousemove', function(e) {
         if (parallaxTimeout) return;
@@ -90,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const deltaX = (mouseX - centerX) / centerX;
             const deltaY = (mouseY - centerY) / centerY;
 
-            // Уменьшаем силу эффекта и добавляем плавность
             particles.style.transition = 'transform 0.3s ease-out';
             particles.style.transform = `translate(${deltaX * 10}px, ${deltaY * 10}px)`;
 
@@ -98,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 16);
     });
 
-    // Оптимизируем эффект при скролле
+
     let scrollTimeout;
     let lastScrollTop = 0;
     window.addEventListener('scroll', function() {
@@ -128,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 50);
     });
 
-    // Оптимизируем эффект волны
     document.addEventListener('click', function(e) {
         const particles = document.getElementById('particles-js');
         const ripple = document.createElement('div');

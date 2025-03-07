@@ -1,35 +1,33 @@
-// Функция для проверки видимости элемента
 function isElementInViewport(el) {
     const rect = el.getBoundingClientRect();
-    return (
-        rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85
-    );
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    return rect.top <= windowHeight * 0.85;
 }
 
-// Функция для анимации элементов при скролле
-function handleScrollAnimations() {
-    const elements = document.querySelectorAll('.animate-on-scroll');
+window.handleScrollAnimations = function() {
+    const elements = document.querySelectorAll('.animate-on-scroll:not(.animated)');
     
     elements.forEach(element => {
         if (isElementInViewport(element)) {
-            element.classList.add('active');
+            element.classList.add('animated');
+            requestAnimationFrame(() => {
+                element.classList.add('active');
+            });
         }
     });
-}
+};
 
-// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
-    // Первичная проверка для элементов, видимых при загрузке
     handleScrollAnimations();
-    
-    // Добавляем обработчик скролла с устранением дребезга
-    let scrollTimeout;
+    let ticking = false;
+
     window.addEventListener('scroll', () => {
-        if (scrollTimeout) {
-            window.cancelAnimationFrame(scrollTimeout);
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                handleScrollAnimations();
+                ticking = false;
+            });
+            ticking = true;
         }
-        scrollTimeout = window.requestAnimationFrame(() => {
-            handleScrollAnimations();
-        });
-    });
+    }, { passive: true });
 }); 

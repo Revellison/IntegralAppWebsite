@@ -1,4 +1,4 @@
-/* Создадим новый файл для всех анимаций */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -43,7 +43,6 @@
     }
 }
 
-/* Базовые классы для анимаций при скролле */
 .animate-on-scroll {
     opacity: 0;
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);

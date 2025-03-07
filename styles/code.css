@@ -55,7 +55,6 @@ p {
     transition: color 0.2s ease;
 }
 
-/* Ускоряем анимации для кода */
 .code-container * {
     transition: background-color 0.2s ease, 
                 color 0.2s ease, 

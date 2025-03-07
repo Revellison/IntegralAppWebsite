@@ -1,26 +1,27 @@
 .documentation-container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 60px auto 0;
     padding: 2rem;
     display: flex;
     gap: 2rem;
     position: relative;
-    z-index: 1;
-    background-color: var(--container-bg);
-    backdrop-filter: blur(5px);
+    overflow-x: hidden;
+    background-color: var(--bg-primary);
 }
+
 
 .doc-navigation {
     position: sticky;
-    top: calc(60px + 2rem); /* Учитываем header */
+    top: calc(60px + 2rem);
     height: fit-content;
     min-width: 200px;
+    max-width: 250px;
     background: var(--doc-nav-bg);
     backdrop-filter: blur(5px);
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border-right: 1px solid var(--border-color);
+    z-index: 999;
 }
 
 .doc-navigation ul {
@@ -54,12 +55,15 @@
 }
 
 .content {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    overflow-x: hidden;
     background-color: var(--container-bg);
     backdrop-filter: blur(5px);
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 5px 15px var(--shadow-color);
-    flex: 1;
 }
 
 .content h1, 
@@ -79,12 +83,10 @@
 }
 
 .content pre {
-    background-color: var(--bg-secondary);
-    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
     border-radius: 8px;
-    padding: 1rem;
-    margin: 1rem 0;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .content code {
@@ -92,9 +94,10 @@
     font-family: monospace;
 }
 
-/* Добавим стили для комментариев в коде */
 .content pre code {
-    color: #333;
+    display: block;
+    padding: 0;
+    white-space: pre;
 }
 
 .content pre code::after {
@@ -118,21 +121,24 @@
     color: var(--text-secondary);
     line-height: 1.6;
     margin: 1rem 0;
+    opacity: 0.9;
 }
 
-/* Обновим отступы для подзаголовков в разделе графиков */
+
 #graphs h3 {
     margin-top: 2rem;
     color: #444;
     font-size: 1.2em;
 }
 
-/* Добавляем плавный скролл для всей страницы */
-html {
+
+html, body {
     scroll-behavior: smooth;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
-/* Стили для разделителей в навигации */
+
 .nav-section {
     margin-bottom: 1rem;
     padding-bottom: 1rem;
@@ -143,6 +149,11 @@ html {
     border-bottom: none;
     margin-bottom: 0;
     padding-bottom: 0;
+}
+
+.doc-menu-toggle {
+    display: none !important;
+    transition: display 0.3s ease;
 }
 
 .nav-section-title {
@@ -162,25 +173,454 @@ html {
     color: var(--text-primary);
 }
 
-/* Адаптивность */
-@media (max-width: 768px) {
-    .content {
+@media (max-width: 1024px) {
+    .documentation-container {
         padding: 1.5rem;
-        margin: 1rem;
+        gap: 1.5rem;
+        margin-top: 70px;
+    }
+
+    .doc-navigation {
+        min-width: 160px;
+        padding: 0.8rem;
+    }
+
+    .content {
+        padding: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .documentation-container {
+        flex-direction: column;
+        padding: 1rem;
+        margin-top: 60px;
+        width: 100%;
+    }
+
+    .doc-navigation {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0;
+        background: var(--doc-nav-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transform: translateX(0);
+        transition: all 0.3s ease;
+        overflow-y: auto;
+        z-index: 999;
+    }
+
+    .doc-navigation.active {
+        left: 0;
+        transform: translateX(0);
+        box-shadow: 0 4px 12px var(--shadow-color);
+    }
+
+    .nav-section {
+        margin-bottom: 1.5rem;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1; 
+            transform: translateY(0);
+        }
+    }
+
+    .nav-section-title {
+        color: var(--text-primary);
+        font-weight: 500;
+        font-size: 1.1rem;
+        padding: 0.8rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-section ul li a {
+        color: var(--text-secondary);
+        padding: 1rem;
+        font-size: 1rem;
+        display: block;
+        width: 100%;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .nav-section ul li a:hover {
+        background: var(--hover-bg);
+        color: var(--text-primary);
+        transform: translateX(5px);
+    }
+
+    .nav-section ul li a:active {
+        transform: scale(0.98);
+    }
+
+    .content {
+        width: 100%;
+        padding: 1rem;
+        margin: 0;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        background: var(--container-bg);
+        border-radius: 12px;
     }
 
     .content section {
-        padding: 1rem;
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
+        background: var(--card-bg);
+        border-radius: 10px;
+        box-shadow: 0 2px 8px var(--shadow-color);
+    }
+
+    .content h1 {
+        font-size: 2rem;
+        margin-bottom: 1.2rem;
+        color: var(--text-primary);
+    }
+
+    .content h2 {
+        font-size: 1.6rem;
+        color: var(--text-primary);
+    }
+
+    .content h3 {
+        font-size: 1.3rem;
+        color: var(--text-primary);
+    }
+
+    .content p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+    }
+
+    .doc-menu-toggle {
+        width: 38px;
+        height: 38px;
+        right: 1rem;
+        top: 70px;
+        background: var(--text-primary);
+        color: var(--bg-primary);
     }
 }
 
 @media (max-width: 480px) {
+    .documentation-container {
+        padding: 0.8rem;
+        margin-top: 60px;
+    }
+
     .content {
+        padding: 0.8rem;
+    }
+
+    .doc-navigation {
+        padding: 0.8rem;
+    }
+
+    .nav-section-title {
+        font-size: 1rem;
+        padding: 0.7rem;
+    }
+
+    .nav-section ul li a {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    .content section {
         padding: 1rem;
-        margin: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .content h1 {
+        font-size: 1.7rem;
+    }
+
+    .content h2 {
+        font-size: 1.4rem;
+    }
+
+    .content h3 {
+        font-size: 1.2rem;
+    }
+
+    .content p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .content pre {
+        margin: 0.5rem -0.6rem;
+        padding: 0.8rem;
+        width: calc(100% + 1.2rem);
+        font-size: 0.85rem;
+        background: var(--bg-secondary);
+        border-radius: 8px;
+        overflow-x: auto;
+    }
+
+    .content code {
+        font-size: 0.85rem;
+        color: var(--text-primary);
+    }
+
+    .doc-menu-toggle {
+        width: 35px;
+        height: 35px;
+        right: 0.8rem;
+        top: 70px;
+    }
+    
+    .doc-menu-toggle i {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .documentation-container {
+        padding: 0.6rem;
+    }
+
+    .content {
+        padding: 0.6rem;
     }
 
     .content section {
         padding: 0.8rem;
+        margin-bottom: 0.8rem;
     }
-} 
+
+    .content h1 {
+        font-size: 1.5rem;
+    }
+
+    .content h2 {
+        font-size: 1.3rem;
+    }
+
+    .content h3 {
+        font-size: 1.1rem;
+    }
+
+    .content p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .content pre {
+        margin: 0.5rem -0.6rem;
+        padding: 0.8rem;
+        width: calc(100% + 1.2rem);
+        font-size: 0.85rem;
+    }
+
+    .doc-menu-toggle {
+        width: 32px;
+        height: 32px;
+        right: 0.6rem;
+        top: 68px;
+    }
+    
+    .doc-menu-toggle i {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .documentation-container {
+        padding: 0.5rem;
+    }
+
+    .content {
+        padding: 0.5rem;
+    }
+
+    .doc-navigation {
+        padding: 0.6rem;
+    }
+
+    .nav-section-title {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+
+    .nav-section ul li a {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .content section {
+        padding: 0.7rem;
+        margin-bottom: 0.7rem;
+    }
+
+    .content pre {
+        margin: 0.5rem -0.5rem;
+        padding: 0.7rem;
+        width: calc(100% + 1rem);
+        font-size: 0.8rem;
+    }
+
+    .content code {
+        font-size: 0.8rem;
+    }
+
+    .doc-menu-toggle {
+        width: 30px;
+        height: 30px;
+        right: 0.5rem;
+        top: 65px;
+    }
+}
+
+/* Улучшаем отображение списков */
+.content ul, 
+.content ol {
+    padding-left: 1.2rem;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 480px) {
+    .content ul, 
+    .content ol {
+        padding-left: 1rem;
+    }
+}
+
+/* Улучшаем отображение изображений */
+.content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: transform 0.3s ease;
+}
+
+.content img:hover {
+    transform: scale(1.02);
+}
+
+/* Плавные переходы для всех интерактивных элементов */
+.doc-navigation a,
+.content a,
+.doc-menu-toggle {
+    transition: all 0.3s ease;
+}
+
+.content section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.content section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Обновляем стили кнопки меню */
+.doc-menu-toggle {
+    position: fixed;
+    right: 1rem;
+    top: 75px;
+    z-index: 1000;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--text-primary);
+    color: var(--bg-primary);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+/* Добавляем стили для иконки внутри кнопки */
+.doc-menu-toggle i {
+    font-size: 1.2rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+/* Эффекты при наведении */
+.doc-menu-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px var(--shadow-color);
+}
+
+/* Эффект при нажатии */
+.doc-menu-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Адаптивность для кнопки */
+@media (max-width: 768px) {
+    .doc-menu-toggle {
+        width: 38px;
+        height: 38px;
+        right: 1rem;
+        top: 70px;
+    }
+    .doc-navigation {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .doc-menu-toggle {
+        width: 35px;
+        height: 35px;
+        right: 0.8rem;
+        top: 70px;
+    }
+    
+    .doc-menu-toggle i {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .doc-menu-toggle {
+        width: 32px;
+        height: 32px;
+        right: 0.6rem;
+        top: 68px;
+    }
+    
+    .doc-menu-toggle i {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .doc-menu-toggle {
+        width: 30px;
+        height: 30px;
+        right: 0.5rem;
+        top: 65px;
+    }
+}

@@ -279,7 +279,6 @@ p {
     }
 }
 
-/* Ускоряем анимации */
 * {
     transition: background-color 0.2s ease, 
                 color 0.2s ease, 
@@ -287,7 +286,6 @@ p {
                 box-shadow 0.2s ease;
 }
 
-/* Стили для основного контента */
 .content section {
     background-color: var(--card-bg);
     border-radius: 10px;
@@ -311,7 +309,6 @@ p {
     color: var(--text-secondary);
 }
 
-/* Стили для методологии */
 section ul strong {
     color: var(--text-primary);
     transition: color 0.2s ease;

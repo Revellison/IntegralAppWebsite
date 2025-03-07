@@ -90,7 +90,7 @@
     height: 100%;
 }
 
-/* Добавляем копирайт */
+
 .footer-bottom {
     text-align: center;
     padding-top: 0.5rem;
@@ -100,7 +100,7 @@
     font-size: 0.7rem;
 }
 
-/* Планшеты */
+
 @media (max-width: 768px) {
     .footer {
         padding: 0.8rem 0;
@@ -126,7 +126,7 @@
     }
 }
 
-/* Мобильные устройства */
+
 @media (max-width: 576px) {
     .footer-content {
         flex-direction: column;
@@ -163,7 +163,7 @@
     }
 }
 
-/* Маленькие мобильные устройства */
+
 @media (max-width: 360px) {
     .footer {
         padding: 0.6rem 0;
@@ -199,7 +199,7 @@
     }
 }
 
-/* Очень маленькие устройства */
+
 @media (max-width: 320px) {
     .footer {
         padding: 0.4rem 0;
