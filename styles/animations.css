@@ -64,13 +64,11 @@
     transform: scale(0.95);
 }
 
-/* Активное состояние */
 .animate-on-scroll.active {
     opacity: 1;
     transform: translate(0) scale(1);
 }
 
-/* Задержки анимации */
 .delay-100 { transition-delay: 0.1s; }
 .delay-200 { transition-delay: 0.2s; }
 .delay-300 { transition-delay: 0.3s; }

@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Добавляем кнопку переключения меню и оверлей
     const docContainer = document.querySelector('.documentation-container');
     const menuButton = document.createElement('button');
     menuButton.className = 'doc-menu-toggle';
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const navigation = document.querySelector('.doc-navigation');
     let isMenuOpen = false;
 
-    // Функция переключения меню
     function toggleMenu() {
         isMenuOpen = !isMenuOpen;
         navigation.classList.toggle('active');
@@ -26,11 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.style.transform = isMenuOpen ? 'rotate(180deg)' : 'rotate(0deg)';
     }
 
-    // Обработчики событий
     menuButton.addEventListener('click', toggleMenu);
     overlay.addEventListener('click', toggleMenu);
 
-    // Закрытие меню при клике на ссылку
     navigation.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             if (window.innerWidth <= 768) {
@@ -39,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Анимация секций при скролле
     const sections = document.querySelectorAll('.content section');
     
     function checkSections() {
@@ -53,15 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Первичная проверка при загрузке
     checkSections();
 
-    // Проверка при скролле
     window.addEventListener('scroll', () => {
         checkSections();
     });
 
-    // Обработка изменения размера окна
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768 && isMenuOpen) {
             toggleMenu();

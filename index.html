@@ -3,15 +3,33 @@
 <head>
    <link rel="stylesheet" href="./styles/global.css">
    <link rel="stylesheet" href="./styles/particle.css">
+   <link rel="stylesheet" href="preloader/preloader.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Integral - Главная</title>
    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
    <script src="js/animations.js" defer></script>
+   <script src="js/preloader.js"></script>
 </head>
 
 <body>
+   <!-- Прелоадер -->
+   <div class="preloader" id="preloader">
+      <div class="loader">
+         <div class="phrase-container">
+            <div class="phrase">Собираем пиксели</div>
+            <div class="phrase">Настраиваем интерфейс</div>
+            <div class="phrase">Заряжаемся вдохновением</div>
+            <div class="phrase">Оживляем элементы</div>
+            <div class="phrase">Запускаем механизмы</div>
+         </div>
+         <div class="progress-container">
+            <div class="progress-bar"></div>
+         </div>
+      </div>
+   </div>
+
    <div id="header-placeholder"></div>
    <div id="particles-js"></div>
    <div class="content-wrapper">
@@ -84,7 +102,7 @@
       </div>
    </div>
    <div id="footer-placeholder"></div>
-   <script src="js/preloader.js"></script>
+
    <script src="js/loadheader.js"></script>
    <script src="js/loadfooter.js"></script>
    <script src="js/particles.js"></script>
