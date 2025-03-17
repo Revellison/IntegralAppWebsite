@@ -1182,4 +1182,28 @@ body {
         font-size: 1rem;
     }
 }
+
+.visible {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+.feature-card {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+
+.ai-icon {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+
+.watermark-container {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
         
