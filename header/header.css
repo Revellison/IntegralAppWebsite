@@ -334,7 +334,7 @@ a:hover {
     }
 }
 
-.theme-toggle {
+.theme-toggle, .snake {
     background: none;
     border: none;
     border-radius: 25%;
@@ -349,7 +349,7 @@ a:hover {
     transition: all 0.3s ease, color 0.3s ease;
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover, .snake:hover {
     background-color: rgba(0, 0, 0, 0.253);
 }
 

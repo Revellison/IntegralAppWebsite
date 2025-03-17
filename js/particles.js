@@ -126,17 +126,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 50);
     });
 
-    document.addEventListener('click', function(e) {
-        const particles = document.getElementById('particles-js');
-        const ripple = document.createElement('div');
-        ripple.className = 'ripple';
-        ripple.style.left = e.clientX + 'px';
-        ripple.style.top = e.clientY + 'px';
-        
-        ripple.style.animation = 'ripple 0.8s ease-out';
-        ripple.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%)';
-        
-        particles.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 800);
-    });
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (!isMobile) {
+        document.addEventListener('click', function(e) {
+            const particles = document.getElementById('particles-js');
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = e.clientX + 'px';
+            ripple.style.top = e.clientY + 'px';
+            
+            ripple.style.animation = 'ripple 0.8s ease-out';
+            ripple.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%)';
+            
+            particles.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 800);
+        });
+    }
 }); 

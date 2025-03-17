@@ -3,6 +3,9 @@
 <header>
     <a class="logo" href="index.html">INTEGRAL</a>
     <div class="header-controls">
+        <button class="snake" aria-label="Змейка Vitalya" onclick="window.location.href='snake.html'" >
+            <i class="fas fa-gamepad"></i>
+        </button>
         <button class="theme-toggle" aria-label="Переключить тему">
             <i class="fas fa-sun"></i>
         </button>
@@ -18,19 +21,17 @@
     </div>
 </header>
 <script>
-// Ждем полной загрузки DOM
+
 document.addEventListener('DOMContentLoaded', function() {
     const checkbox = document.getElementById('burger-checkbox');
     const navigation = document.querySelector('.navigation');
 
-    // Закрытие меню при клике на ссылку
     navigation.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', function() {
             checkbox.checked = false;
         });
     });
 
-    // Закрытие меню при изменении размера экрана
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
             checkbox.checked = false;
